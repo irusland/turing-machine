@@ -1,0 +1,8 @@
+2
+delete stop
+delete stop
+3
+delete 1 -> delete _ R
+delete 0 -> delete 0 R
+delete _ -> stop _ L
+110111011

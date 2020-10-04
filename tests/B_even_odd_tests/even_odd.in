@@ -1,0 +1,11 @@
+3
+even odd stop
+even stop
+6
+even 0 -> even _ R
+even 1 -> odd _ R
+even _ -> stop 0 S
+odd 0 -> odd _ R
+odd 1 -> even _ R
+odd _ -> stop 1 S
+1011

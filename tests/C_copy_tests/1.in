@@ -1,0 +1,37 @@
+12
+isolate stop cr grab place_1 place_0 revert_1 revert_0 skip move_0 move_1 delete_trailing
+isolate stop
+32
+isolate 1 -> isolate 1 R
+isolate 0 -> isolate 0 R
+isolate _ -> cr | L
+cr 0 -> cr 0 L
+cr 1 -> cr 1 L
+cr _ -> grab _ R
+grab 1 -> place_1 # R
+grab 0 -> place_0 # R
+grab | -> skip ^ R
+place_1 1 -> place_1 1 R
+place_1 0 -> place_1 0 R
+place_1 _ -> revert_1 1 L
+place_1 | -> place_1 | R
+place_0 1 -> place_0 1 R
+place_0 0 -> place_0 0 R
+place_0 _ -> revert_0 0 L
+place_0 | -> place_0 | R
+revert_1 # -> grab 1 R
+revert_1 0 -> revert_1 0 L
+revert_1 1 -> revert_1 1 L
+revert_1 | -> revert_1 | L
+revert_0 # -> grab 0 R
+revert_0 0 -> revert_0 0 L
+revert_0 1 -> revert_0 1 L
+revert_0 | -> revert_0 | L
+skip ^ -> skip ^ R
+skip _ -> delete_trailing _ L
+skip 0 -> move_0 ^ L
+skip 1 -> move_1 ^ L
+move_0 ^ -> skip 0 R
+move_1 ^ -> skip 1 R
+delete_trailing ^ -> stop _ S
+10010
