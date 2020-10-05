@@ -45,6 +45,11 @@ class MyTestCase(unittest.TestCase):
             with self.subTest(name):
                 run(self, i, o)
 
+    def test_F(self):
+        i = 'tests/F_power2/1.in'
+        o = 'tests/F_power2/1.out'
+        run(self, i, o)
+
 
 if __name__ == '__main__':
     unittest.main()

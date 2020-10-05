@@ -84,6 +84,7 @@ class TuringMachine:
         if self.symbol is None:
             self.symbol = self.empty
         step = self.step_function.get_step((self.state, self.symbol))
+        # print(self.state, self.symbol, self.position, sep='\t')
         if step is not None:
             state_next, symbol_next, heading = step
             self.tape[self.position] = symbol_next
@@ -93,8 +94,10 @@ class TuringMachine:
                 self.position += -1
             self.state = state_next
             self.step_count += 1
+            # print(self.get_tape())
             return True
         else:
+            # print((self.state, self.symbol))
             return False
 
     def is_final(self) -> bool:

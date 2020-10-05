@@ -36,10 +36,6 @@ def main():
         else:
             print(f'FAIL after {machine.step_count} transitions')
             break
-    # todo ___00___
-    # todo        ^index
-    # todo ___00___
-    # todo ^index
 
     start = next((k for k, v in machine.tape.tape.items() if v != '_'), None)
     if start is not None:

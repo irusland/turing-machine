@@ -1,0 +1,27 @@
+12
+delete place first skip take stop divide carry skip1 is_not_a_power flush wrap
+first stop
+22
+first 1 -> skip1 1 R
+skip1 1 -> divide / R
+skip1 _ -> stop _ S
+skip1 / -> stop _ S
+divide 1 -> skip 1 R
+divide _ -> wrap _ L
+skip 1 -> divide / R
+skip _ -> is_not_a_power _ L
+wrap 1 -> take 1 L
+wrap / -> take / S
+take / -> take / L
+take 1 -> carry / R
+take _ -> flush _ R
+carry / -> carry / R
+carry 1 > place 1 L
+carry _ > place _ L
+place / -> take 1 L
+flush / -> flush _ R
+flush 1 -> first 1 S
+is_not_a_power 1 -> is_not_a_power _ L
+is_not_a_power / -> is_not_a_power _ L
+is_not_a_power _ -> stop 0 L
+11
