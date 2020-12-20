@@ -1,0 +1,61 @@
+15
+start stop send1 carry1 carry0 send0 search_right next_digit mark1 mark2 add1 start ret_to_next_digit to_stop del_trail
+start stop
+44
+start   0   ->  start   0   R
+start   1   ->  start   1   R
+start   +   ->  mark1   +   L
+
+mark1   0   ->  search_right    "  R
+mark1   1   ->  search_right    '  R
+
+search_right    +   ->  search_right    +   R
+search_right    0   ->  search_right    0   R
+search_right    1   ->  search_right    1   R
+
+search_right    "  ->  mark2   _   L
+search_right    '  ->  mark2   _   L
+search_right    _   ->  mark2   _   L
+
+mark2   0   ->  send0   "   L
+mark2   1   ->  send1   '   L
+
+mark2   +   ->  to_stop    _   L
+to_stop   0   ->  to_stop    0   L
+to_stop   1   ->  to_stop    1   L
+to_stop   '   ->  to_stop    1   L
+to_stop   "   ->  to_stop    0   L
+to_stop   _   ->  del_trail    _   R
+del_trail   1   ->  stop    1   S
+del_trail   0   ->  del_trail    _   R
+
+send0   0   ->  send0   0   L
+send0   1   ->  send0   1   L
+send0   +   ->  carry0  +   L
+
+carry0  0  ->  carry0    0   L
+carry0  1  ->  carry0    1   L
+carry0  "  ->  next_digit    0   L
+carry0  '  ->  next_digit    1   L
+
+next_digit  0   ->  search_right  "  R
+next_digit  1   ->  search_right  '  R
+next_digit  _   ->  search_right  "  R
+
+send1   0   ->  send1   0   L
+send1   1   ->  send1   1   L
+send1   +   ->  carry1  +   L
+
+carry1  0  ->  carry1    0   L
+carry1  1  ->  carry1    1   L
+carry1  "  ->  next_digit    1   L
+carry1  '  ->  add1    "   L
+
+add1    _   ->  ret_to_next_digit   1   R
+add1    0   ->  ret_to_next_digit   1   R
+add1    1   ->  add1   0   L
+
+ret_to_next_digit   0   ->  ret_to_next_digit   0   R
+ret_to_next_digit   1   ->  ret_to_next_digit   1   R
+ret_to_next_digit   "   ->  next_digit   0   L
+1000+110

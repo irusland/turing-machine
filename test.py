@@ -50,6 +50,11 @@ class MyTestCase(unittest.TestCase):
         o = 'tests/F_power2/1.out'
         run(self, i, o)
 
+    def test_E(self):
+        i = 'tests/E_addition_tests/10+11.in'
+        o = 'tests/E_addition_tests/10+11.out'
+        run(self, i, o)
+
 
 if __name__ == '__main__':
     unittest.main()

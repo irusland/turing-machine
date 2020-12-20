@@ -8,8 +8,12 @@ def main():
     states_final = {state_final}
     steps_count = int(input())
     steps = dict()
-    for _ in range(steps_count):
-        state, symbol, _, state_next, symbol_next, heading = input().split()
+    while steps_count > 0:
+        line = input()
+        if line == '':
+            continue
+        steps_count -= 1
+        state, symbol, _, state_next, symbol_next, heading = line.split()
         state = State(state)
         state_next = State(state_next)
         heading = Heading(heading)

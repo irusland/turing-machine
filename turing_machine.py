@@ -6,10 +6,16 @@ class Tape:
         self.tape = dict((enumerate(tape)))
 
     def __str__(self):
-        return "".join(c for c in self.tape.values())
+        st = []
+        for i, c in sorted(self.tape.items(), key=lambda kv: kv[0]):
+            st.append(c)
+        return "".join(st)
 
     def __getitem__(self, index: int) -> str:
         if index in self.tape:
+            return self.tape[index]
+        else:
+            self.tape[index] = '_'
             return self.tape[index]
 
     def __setitem__(self, i, char):
@@ -62,7 +68,8 @@ class TuringMachine:
                  step_function: StepFunction,
                  states: {State},
                  state_initial: State,
-                 states_final: {State}):
+                 states_final: {State},
+                 is_debug_mode=False):
         self.tape = tape
         self.alphabet = alphabet
         self.state_initial = state_initial
@@ -75,6 +82,7 @@ class TuringMachine:
         self.state = state_initial
         self.symbol = None
         self.step_count = 0
+        self.IS_DEBUG_MODE = is_debug_mode
 
     def get_tape(self) -> str:
         return str(self.tape)
@@ -84,8 +92,11 @@ class TuringMachine:
         if self.symbol is None:
             self.symbol = self.empty
         step = self.step_function.get_step((self.state, self.symbol))
-        # print(self.state, self.symbol, self.position, sep='\t')
         if step is not None:
+            if self.IS_DEBUG_MODE:
+                print(self.state, self.symbol, '>', *step, sep='\t')
+                print(self.get_tape())
+                print(' ' * self.position + '^')
             state_next, symbol_next, heading = step
             self.tape[self.position] = symbol_next
             if heading == Heading.RIGHT:
@@ -94,10 +105,18 @@ class TuringMachine:
                 self.position += -1
             self.state = state_next
             self.step_count += 1
-            # print(self.get_tape())
+            if self.IS_DEBUG_MODE:
+                print(self.get_tape())
+
+                print(' ' * (self.position if self.position >= 0 else -(
+                        len(self.get_tape()) + self.position)) + '^')
+                print()
             return True
         else:
-            # print((self.state, self.symbol))
+            if self.IS_DEBUG_MODE:
+                print(self.state, self.symbol, '>', '?', sep='\t')
+                print(self.get_tape())
+                print(' ' * self.position + '^')
             return False
 
     def is_final(self) -> bool:
